@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -6,10 +6,37 @@ import { PlanViz, planRaw1, sample1 } from "./lib/planViz";
 import { TreeView } from "./components/TreeView";
 import lzString from "lz-string";
 
+function updateUrl(doc) {
+  doc = {
+    title: document.title,
+    ...doc,
+  };
+  const url = new URL(window.location.href);
+  url.searchParams.set(
+    "q",
+    lzString.compressToEncodedURIComponent(JSON.stringify(doc)),
+  );
+  window.location.href = url.toString();
+}
+
 function App() {
   const [count, setCount] = useState(0);
-  const [text, setText] = useState(planRaw1);
+  const [text, _setText] = useState(planRaw1);
   const [code, _output] = sample1(text);
+  const debounceRef = useRef<number | null>(null);
+  const setText = useCallback((t: string) => {
+    _setText(t);
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+    debounceRef.current = setTimeout(() => {
+      updateUrl({
+        text: t,
+      });
+      debounceRef.current = null;
+    }, 1000);
+  }, []);
+
   useEffect(() => {
     const url = new URL(window.location.href);
     const qString = url.searchParams.get("q");
@@ -37,17 +64,13 @@ function App() {
         isLZString = false;
       }
       if (doc.text) {
-        setText(doc.text);
+        _setText(doc.text);
       }
       if (doc.title) {
         document.title = doc.title;
       }
       if (!isLZString) {
-        url.searchParams.set(
-          "q",
-          lzString.compressToEncodedURIComponent(JSON.stringify(doc)),
-        );
-        window.location.href = url.toString();
+        updateUrl(doc);
       }
     } catch (err) {}
   }, []);
@@ -63,6 +86,7 @@ function App() {
         }}
       >
         <div className="w100pct-on-focus">
+          <code>{document.title}</code>
           <textarea
             style={{ whiteSpace: "pre" }}
             rows={100}
