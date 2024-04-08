@@ -1,0 +1,19 @@
+svg.progress {
+  width: 100%;
+  height: 1em;
+}
+svg.progress text {
+  color: var(--base07);
+  font-size: 1em;
+}
+div.node-card {
+  background-color: var(--base07);
+  border: 1px solid var(--base04);
+  padding: 4px;
+}
+/* @media (prefers-color-scheme: light) { */
+/*   div.node-card { */
+/*     background-color: #efefef; */
+/*     border-color: #101010; */
+/*   } */
+/* } */

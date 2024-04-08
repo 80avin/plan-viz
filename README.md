@@ -7,9 +7,11 @@ Query Plan Visualizer
 - read verbose query plan
   - all available properties should be captured. data type of a property should be automatically inferred.
 - allow defining custom properties (dimensions)
-
   - custom properties can be javascript like expressions like `deltaCost = '$.statsGroups[0].cost[1] - $.statsGroups[0].cost[0]'`
   - use [ jsep ](https://www.npmjs.com/package/jsep) to parse/evaluate expressions similar to https://github.com/JSONPath-Plus/JSONPath/pull/185/files
+- search the tree
+- theming
+- vim like keyboard shortcuts. i.e. composable keyboard shortcuts.
 
 - [x] Create panels for
   - tree visualization

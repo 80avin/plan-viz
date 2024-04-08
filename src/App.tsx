@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
-import { PlanViz, planRaw1, sample1 } from "./lib/planViz";
+import { planRaw1, sample1 } from "./lib/planViz";
 import { TreeView } from "./components/TreeView";
 import lzString from "lz-string";
+import ThemeSelect from "./components/ThemeSelect";
 
 function updateUrl(doc) {
   doc = {
@@ -16,11 +15,10 @@ function updateUrl(doc) {
     "q",
     lzString.compressToEncodedURIComponent(JSON.stringify(doc)),
   );
-  window.location.href = url.toString();
+  window.history.pushState(undefined, "", url);
 }
 
 function App() {
-  const [count, setCount] = useState(0);
   const [text, _setText] = useState(planRaw1);
   const [code, _output] = sample1(text);
   const debounceRef = useRef<number | null>(null);
@@ -74,7 +72,6 @@ function App() {
       }
     } catch (err) {}
   }, []);
-  // const output = JSON.stringify(_output, undefined, 2);
   return (
     <>
       <div
@@ -86,19 +83,17 @@ function App() {
         }}
       >
         <div className="w100pct-on-focus">
-          <code>{document.title}</code>
-          <textarea
-            style={{ whiteSpace: "pre" }}
-            rows={100}
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          ></textarea>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <ThemeSelect />
+            <code>{document.title}</code>
+            <textarea
+              style={{ whiteSpace: "pre" }}
+              rows={100}
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            ></textarea>
+          </div>
         </div>
-        {/* <textarea */}
-        {/*   style={{ width: "100%" }} */}
-        {/*   rows={100} */}
-        {/*   value={output} */}
-        {/* ></textarea> */}
         <div style={{ width: "100%" }}>
           <TreeView data={_output} />
         </div>

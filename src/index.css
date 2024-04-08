@@ -3,9 +3,9 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: var(--scheme, light dark);
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: var(--scheme, dark light);
+  color: var(--base00, rgba(255, 255, 255, 0.87));
+  background-color: var(--base05, #242424);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,11 +15,11 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--base03, #646cff);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--base02, #535bf2);
 }
 
 body {
@@ -42,12 +42,31 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--base01, #1a1a1a);
   cursor: pointer;
   transition: border-color 0.25s;
+  color: var(--base06, #646cff);
+}
+.btn-group > *:not(:last-child) {
+  border-right: 1px solid var(--base05);
+}
+.btn-group > *:not(:first-child, :last-child) {
+  border-radius: 0;
+  outline: 0 1px 0 1px solid;
+}
+.btn-group :first-child {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+.btn-group :last-child {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: var(--base03, #646cff);
+}
+button.active {
+  background-color: var(--base0F, #5a1010);
 }
 button:focus,
 button:focus-visible {
@@ -64,5 +83,8 @@ button:focus-visible {
   }
   button {
     background-color: #f9f9f9;
+  }
+  button.active {
+    background-color: #d9f9f9;
   }
 }
