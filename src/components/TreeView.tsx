@@ -47,18 +47,17 @@ export const TreeView = (props) => {
   }, [settings]);
   const resizeChart = useCallback(async () => {
     const dict = {};
-    const prevNodeUpdate = chartRef.current?.getChartState().nodeUpdate;
+    const data = chartRef.current!.data();
     chartRef
-      .current!.nodeUpdate(function (d) {
-        dict[d.id] = {
-          h: this.querySelector("foreignObject>div>div").scrollHeight,
+      .current!.container()
+      .querySelectorAll("g.node")
+      .forEach((el, i) => {
+        dict[data[i].id] = {
+          h: el.querySelector("foreignObject>div>div").scrollHeight,
         };
-      })
-      .render();
+      });
 
-    await delay(10);
-    chartRef.current!.nodeHeight((d) => dict[d.id]?.h || 150).render;
-    chartRef.current!.nodeUpdate(prevNodeUpdate);
+    chartRef.current!.nodeHeight((d) => dict[d.id]?.h || 150).render();
   }, []);
   useLayoutEffect(() => {
     if (!flatData || !containerRef.current) return;
