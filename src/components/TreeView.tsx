@@ -47,12 +47,11 @@ export const TreeView = (props) => {
   }, [settings]);
   const resizeChart = useCallback(async () => {
     const dict = {};
-    const data = chartRef.current!.data();
     chartRef
       .current!.container()
       .querySelectorAll("g.node")
       .forEach((el, i) => {
-        dict[data[i].id] = {
+        dict[el.__data__?.id || i] = {
           h: el.querySelector("foreignObject>div>div").scrollHeight,
         };
       });
