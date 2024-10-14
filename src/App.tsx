@@ -80,10 +80,17 @@ function App() {
           gap: "10px",
           justifyContent: "stretch",
           width: "100%",
+          height: "calc(100vh - 4rem)",
         }}
       >
         <div className="w100pct-on-focus">
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div
+            style={{
+              display: "flex",
+              maxHeight: "100%",
+              flexDirection: "column",
+            }}
+          >
             <ThemeSelect />
             <code>{document.title}</code>
             <textarea

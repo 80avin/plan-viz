@@ -11,9 +11,3 @@ div.node-card {
   border: 1px solid var(--base04);
   padding: 4px;
 }
-/* @media (prefers-color-scheme: light) { */
-/*   div.node-card { */
-/*     background-color: #efefef; */
-/*     border-color: #101010; */
-/*   } */
-/* } */

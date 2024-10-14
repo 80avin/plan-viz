@@ -2,6 +2,7 @@
   width: 100vw;
   height: 100vh;
   padding: 2rem;
+  box-sizing: border-box;
   text-align: center;
 }
 .w100pct-on-focus:focus,
@@ -9,9 +10,6 @@
   width: 100%;
 }
 
-.w100pct-on-focus textarea {
-  max-height: calc(100vh - 20px);
-}
 .svg-chart-container {
   font-size: 12px;
 }

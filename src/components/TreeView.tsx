@@ -71,7 +71,7 @@ export const TreeView = (props) => {
       .container(containerRef.current)
       .data(flatData)
       .nodeWidth(() => 320)
-      .svgHeight(window.innerHeight - 10)
+      .svgHeight(containerRef.current.clientHeight)
       .nodeHeight(() => 140)
       .compactMarginBetween((d) => 65)
       .compactMarginPair((d) => 100)
@@ -211,7 +211,15 @@ export const TreeView = (props) => {
   }, []);
   const { cursorType } = settings;
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        maxHeight: "100%",
+        height: "100%",
+        gap: "2px",
+      }}
+    >
       <div>
         <div className="flex gap-8 f-wrap">
           <div className="flex btn-group">
@@ -281,7 +289,14 @@ export const TreeView = (props) => {
           </button>
         </div>
       </div>
-      <div ref={containerRef} />
+      <div
+        ref={containerRef}
+        style={{
+          flexGrow: 1,
+          border: "1px solid var(--base06)",
+          borderRadius: "8px",
+        }}
+      />
     </div>
   );
 };
